@@ -66,7 +66,7 @@ class CreateAccountUser extends Controller
                 $url = $domain . '/verify-email/' . $random;
 
                 $data['url'] = $url;
-                $data['name'] =$user->name;
+                $data['name'] =auth()->user()->name;
                 $data['email'] = $email;
                 $data['title'] = 'Verifica Email';
                 $data['body'] = 'Clicca per verificare la mail';

@@ -35,7 +35,7 @@ class LoginAccount extends Controller
 
         $request->session()->regenerateToken();*/
 
-        $request->customer()->tokens()->delete();
+        $request->user()->tokens()->delete();
 
         // Auth::logout();
 

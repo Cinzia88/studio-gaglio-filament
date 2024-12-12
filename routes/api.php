@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //gestione autenticazione e dati account dell' utente
     Route::post('/delete-account', [DeleteAccountUser::class, 'destroy']);
     Route::get('send-verify-mail/{email}', [CreateAccountUser::class, 'sendMail']);
-    Route::post('/change-password', [ChangePasswordUser::class, 'update']);
+    Route::post('/change-password/{id}', [ChangePasswordUser::class, 'update']);
     Route::post('/logout', [LoginAccount::class, 'destroy']);
 
     Route::put('/edit-user/{id}', [EditAccountUser::class, 'update']);
