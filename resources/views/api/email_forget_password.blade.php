@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="buttons is-centered">
-                <a href="{{ URL::to('reset-password/ {{ $token }}) " class="button is-success">Reset Password</a>
+                <a href="{{ URL::to('reset-password/'.$token) }}" class="button is-success">Reset Password</a>
 
             </div>
 

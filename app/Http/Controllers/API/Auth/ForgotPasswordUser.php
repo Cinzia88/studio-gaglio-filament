@@ -36,12 +36,12 @@ class ForgotPasswordUser extends Controller
       public function submitForgetPasswordForm(Request $request): JsonResponse
       {
           $request->validate([
-              'email' => 'required|email|exists:customers',
+              'email' => 'required|email',
           ]);
 
           $token = Str::random(64);
 
-          DB::table('password_reset_tokens')->insert([
+          DB::table('password_reset_tokens')->insertOrIgnore([
               'email' => $request->email,
               'token' => $token,
               'created_at' => Carbon::now()

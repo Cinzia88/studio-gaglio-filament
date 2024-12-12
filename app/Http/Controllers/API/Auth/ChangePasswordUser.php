@@ -17,8 +17,10 @@ class ChangePasswordUser extends Controller
             'password' => ['required', ],
             'confirm_password' => ['required', 'same:password'],
         ]);
+
+        $customer = Customer::find($request->id);
         #Match The Old Password
-        if(!Hash::check($request->old_password, auth()->user()->password)){
+        if(!Hash::check($request->old_password, $customer->password)){
             return  response()->json([
                 'message'=> 'La password corrente è errata'
             ], 400);;
@@ -26,7 +28,7 @@ class ChangePasswordUser extends Controller
 
 
         #Update the new Password
-        Customer::whereId(auth()->user()->id)->update([
+        Customer::whereId($customer->id)->update([
             'password' => Hash::make($request->password)
         ]);
 
