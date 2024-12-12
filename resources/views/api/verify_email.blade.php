@@ -8,16 +8,7 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 
-    <style>
-        :root {
-            --bulma-primary: red;
-            --bulma-size-medium: 0.5rem;
-        }
 
-        .button {
-            background-color: red;
-        }
-    </style>
 </head>
 
 <body>
@@ -35,8 +26,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <p>
-                            Hai ricevuto questa e-mail perché abbiamo ricevuto dal tuo account una richiesta di verifica
-                            dell'e-mail.<br />Clicca in basso per verificare la tua e-mail.
+                            Hai ricevuto questa e-mail perché abbiamo ricevuto dal tuo account una richiesta di verificarla.<br />Clicca in basso per verificare la tua e-mail.
                         </p>
                     </div>
                 </div>

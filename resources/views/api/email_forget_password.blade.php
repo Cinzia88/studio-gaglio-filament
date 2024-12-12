@@ -9,18 +9,7 @@
   <title>Hello Bulma!</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 
-  <style>
-     :root {
-      --bulma-primary: red;
-      --bulma-size-medium: 0.5rem;
-    }
 
-    .button {
-      background-color: red;
-    }
-
-
-  </style>
 </head>
 
 <body>
@@ -40,13 +29,13 @@
                 <div class="level-left">
                     <div class="level-item">
                         <p>
-                            {{ $token }}
+                            {{ $data['email'] }}
                         </p>
                     </div>
                 </div>
             </div>
             <div class="buttons is-centered">
-                <a href="{{ URL::to('reset-password/'.$token) }}" class="button is-success">Reset Password</a>
+                <a href="{{ URL::to('reset-password/'.$data['token'] .'/'. $data['email'] ) }}" class="button is-success">Reset Password</a>
 
             </div>
 

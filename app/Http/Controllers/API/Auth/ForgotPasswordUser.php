@@ -18,89 +18,90 @@ use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordUser extends Controller
 {
-    /**
-       * Write code on Method
-       *
-       * @return response()
-       */
-      public function showForgetPasswordForm(): View
-      {
-         return view('api.forgetPassword');
-      }
+  /**
+   * Write code on Method
+   *
+   */
+  public function showForgetPasswordForm(): View
+  {
+    return view('api.forgetPassword');
+  }
 
-      /**
-       * Write code on Method
-       *
-       * @return response()
-       */
-      public function submitForgetPasswordForm(Request $request): JsonResponse
-      {
-          $request->validate([
-              'email' => 'required|email',
-          ]);
+  /**
+   * Write code on Method
+   *
+   */
+  public function submitForgetPasswordForm(Request $request): JsonResponse
+  {
+    $request->validate([
+      'email' => 'required|email',
+    ]);
 
-          $token = Str::random(64);
+    $token = Str::random(64);
 
-          DB::table('password_reset_tokens')->insertOrIgnore([
-              'email' => $request->email,
-              'token' => $token,
-              'created_at' => Carbon::now()
-            ]);
+    DB::table('password_reset_tokens')->insertOrIgnore([
+      'email' => $request->email,
+      'token' => $token,
+      'created_at' => Carbon::now()
+    ],  ['email', 'token'], ['created_at']);
+
+    $tokenData = DB::table('password_reset_tokens')
+    ->where('email', $request->email)->first();
+    $data = [
+      'email' => $request->email,
+      'token' => $tokenData->token,
+    ];
 
 
+    Mail::send('api/email_forget_password', ['data' => $data,], function ($message) use ($request) {
+      $message->to($request->email);
+      $message->subject('Reset Password');
+    });
+    return response()->json([
+      'message' => 'We have e-mailed your password reset link!'
+    ]);
+  }
 
-            Mail::send('api/email_forget_password', ['token' => $token], function($message) use($request){
-              $message->to($request->email);
-              $message->subject('Reset Password');
-          });
-          return response()->json([
-            'message' => 'We have e-mailed your password reset link!'
-        ]);
-      }
+  /**
+   * Write code on Method
+   *
+   */
+  public function showResetPasswordForm($token, $email): View
+  {
+    $data = [
+      'email' => $email,
+      'token' => $token,
+    ];
+    return view('api.email_reset_password', ['data' => $data]);
+  }
 
-      /**
-       * Write code on Method
-       *
-       * @return response()
-       */
-      public function showResetPasswordForm($token): View
-      {
-         return view('api.email_reset_password', ['token' => $token]);
-      }
+  /**
+   * Write code on Method
+   *
+   */
+  public function submitResetPassword(Request $request)
+  {
+    $request->validate([
+      'token' => 'required',
+      'email' => 'required|email',
+      'password' => 'required|string|min:8',
+      'password_confirmation' => 'required'
+    ]);
 
-      /**
-       * Write code on Method
-       *
-       * @return response()
-       */
-      public function submitResetPasswordForm(Request $request): JsonResponse
-      {
-          $request->validate([
-              'email' => 'required|email|exists:customers',
-              'password' => 'required|string|min:6|confirmed',
-              'password_confirmation' => 'required'
-          ]);
+    $updatePassword = DB::table('password_reset_tokens')
+      ->where([
+        'email' => $request->email,
+        'token' => $request->token
+      ])
+      ->first();
 
-          $updatePassword = DB::table('password_reset_tokens')
-                              ->where([
-                                'email' => $request->email,
-                                'token' => $request->token
-                              ])
-                              ->first();
+    if (!$updatePassword) {
+      return "<h1>Invalid token</h1>";
+    }
+    $user = Customer::where('email', $request->email)
+      ->update(['password' => Hash::make($request->password)]);
 
-          if(!$updatePassword){
-            return response()->json([
-                'message' => 'Invalid token!'
-            ]);
-          }
-
-          $user = Customer::where('email', $request->email)
-                      ->update(['password' => Hash::make($request->password)]);
-
-          DB::table('password_reset_tokens')->where(['email'=> $request->email])->delete();
-          return response()->json([
-            'message' => 'Your password has been changed!'
-        ]);
-      }
-
+    DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+    return "<h1>Password cambiata con successo</h1>";
+  }
 }

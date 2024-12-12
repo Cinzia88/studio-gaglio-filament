@@ -17,5 +17,5 @@ use App\Http\Controllers\API\Auth\CreateAccountUser;
 */
 
 
-Route::get('reset-password/{token}', [ForgotPasswordUser::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::get('reset-password/{token}/{email}', [ForgotPasswordUser::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::get('/verify-email/{token}', [CreateAccountUser::class, 'verificationEmail']);
