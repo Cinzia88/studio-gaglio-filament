@@ -17,6 +17,12 @@ class BookingsApp extends Controller
         return $bookings;
     }
 
+    public function index(Request $request)
+    {
+        $bookings_user = Booking::where('customer_id', $request->id)->orderBy('id', 'desc')->paginate(5);
+        return $bookings_user;
+    }
+
     public function store(Request $request) {
         $requestBoookingData = $request->validate([
             'customer_id' => ['required',],
@@ -46,8 +52,8 @@ class BookingsApp extends Controller
     }
 
     public function destroy(Request $request) {
-        $post = Booking::find($request->id);
-        $post->delete();
-        return 'Post Rimosso Con Successo';
+        $booking = Booking::find($request->id);
+        $booking->delete();
+        return 'Prenotazione Rimossa Con Successo';
     }
 }

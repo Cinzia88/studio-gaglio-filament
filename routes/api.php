@@ -59,8 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/bookings', [BookingsApp::class, 'show']);
+    Route::get('/bookings-user/{id}', [BookingsApp::class, 'index']);
     Route::post('/create-booking', [BookingsApp::class, 'store']);
-    Route::delete('/delete-booking', [BookingsApp::class, 'destroy']);
+    Route::delete('/delete-booking/{id}', [BookingsApp::class, 'destroy']);
 
     Route::get('/messages', [MessagesApp::class, 'show']);
     Route::post('/create-message', [MessagesApp::class, 'store']);
