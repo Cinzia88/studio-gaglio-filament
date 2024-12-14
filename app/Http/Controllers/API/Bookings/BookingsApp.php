@@ -13,8 +13,9 @@ class BookingsApp extends Controller
 {
     public function show()
     {
-        $bookings = Booking::orderBy('id', 'desc')->paginate(5);
-        return $bookings;
+        //$bookings = Booking::orderBy('id', 'desc')->paginate(5);
+        $slots = Slot::all();
+        return $slots;
     }
 
     public function index(Request $request)
