@@ -27,6 +27,8 @@ class CreateAccountUser extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults()],
             'confirm_password' => ['required', 'same:password'],
+            'tesserato' => ['nullable', 'boolean'],
+            'n_tessera' => ['nullable', 'string'],
             'device_token' => ['nullable', 'string'],
         ]);
 
@@ -37,13 +39,15 @@ class CreateAccountUser extends Controller
             'telefono' => $request->telefono,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'tesserato' => false,
+            'n_tessera' => '',
             'device_token' => $request->token ?? '',
         ]);
 
 
-        event(new Registered($user));
+        /* event(new Registered($user));
 
-        Auth::login($user);
+        Auth::login($user); */
 
         $token = $user->createToken('api-token');
 
