@@ -31,6 +31,8 @@ class BookingResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        //vhjjhg
         return $form
             ->schema([
                 Forms\Components\Select::make('customer_id')
