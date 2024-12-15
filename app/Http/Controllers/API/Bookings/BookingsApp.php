@@ -8,14 +8,21 @@ use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\Slot;
+use Illuminate\Http\JsonResponse;
 
 class BookingsApp extends Controller
 {
-    public function show()
+    public function show($serviceId): JsonResponse
     {
+
+            $bookings = Booking::where('service_id', $serviceId)->get();
+
         //$bookings = Booking::orderBy('id', 'desc')->paginate(5);
         $slots = Slot::all();
-        return $slots;
+        return response()->json([
+          'slots' =>  $slots,
+          'bookings' => $bookings,
+        ]);
     }
 
     public function index(Request $request)
