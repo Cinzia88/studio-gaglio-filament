@@ -27,7 +27,7 @@ class BookingsApp extends Controller
 
     public function index(Request $request)
     {
-        $bookings_user = Booking::where('customer_id', $request->id)->orderBy('id', 'desc')->paginate(5);
+        $bookings_user = Booking::where('customer_id', $request->id)->orderBy('id', 'desc')->get();
         return $bookings_user;
     }
 
