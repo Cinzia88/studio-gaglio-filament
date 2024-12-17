@@ -28,11 +28,12 @@ class PostResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('titolo')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('descrizione')
-                    ->required()
-                    ->maxLength(255),
+                ->required()
+                ->columnSpanFull(),
+                Forms\Components\TextArea::make('descrizione')
+                ->required()
+                ->columnSpanFull()
+                ->maxLength(255),
             ]);
     }
 

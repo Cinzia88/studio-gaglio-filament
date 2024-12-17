@@ -29,9 +29,10 @@ class MessageResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('titolo')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('descrizione')
+                    ->columnSpanFull(),
+                    Forms\Components\TextArea::make('descrizione')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
             ]);
     }

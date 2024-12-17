@@ -7,6 +7,7 @@ use App\Http\Controllers\API\Auth\DeleteAccountUser;
 use App\Http\Controllers\API\Auth\EditAccountUser;
 use App\Http\Controllers\API\Auth\ForgotPasswordUser;
 use App\Http\Controllers\API\Bookings\BookingsApp;
+use App\Http\Controllers\API\Home\HomeAppController;
 use App\Http\Controllers\API\Messages\MessagesApp;
 use App\Http\Controllers\API\News\NewsApp;
 use App\Http\Controllers\API\Notifications\NotificationsApp;
@@ -48,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('send-verify-mail/{email}', [CreateAccountUser::class, 'sendMail']);
     Route::post('/change-password/{id}', [ChangePasswordUser::class, 'update']);
     Route::post('/logout', [LoginAccount::class, 'destroy']);
+
+
+    Route::get('/home', [HomeAppController::class, 'show']);
 
     Route::put('/edit-user/{id}', [EditAccountUser::class, 'update']);
     Route::put('/save-token/{id}', [EditAccountUser::class, 'saveToken']);
