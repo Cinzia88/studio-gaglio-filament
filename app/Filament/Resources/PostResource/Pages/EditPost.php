@@ -10,6 +10,9 @@ class EditPost extends EditRecord
 {
     protected static string $resource = PostResource::class;
 
+    protected static ?string $title = 'Modifica Notizia';
+
+
     protected function getHeaderActions(): array
     {
         return [

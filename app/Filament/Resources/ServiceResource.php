@@ -27,14 +27,17 @@ class ServiceResource extends Resource
     {
         return $form
             ->schema([
-               /*  Forms\Components\Select::make('holder_id')
+                /*  Forms\Components\Select::make('holder_id')
                 , */
                 Forms\Components\TextInput::make('nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('immagine')
-                ->image()
-                ->directory('services'),
+                    ->openable()
+                    ->required()
+                    ->downloadable()
+                    ->image()
+                    ->imageEditor(),
             ]);
     }
 

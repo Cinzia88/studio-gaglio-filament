@@ -10,6 +10,9 @@ class CreatePost extends CreateRecord
 {
     protected static string $resource = PostResource::class;
 
+    protected static ?string $title = 'Nuova Notizia';
+
+
     protected function getRedirectUrl(): string
     {
         return $this->previousUrl ?? $this->getResource()::getUrl('index');

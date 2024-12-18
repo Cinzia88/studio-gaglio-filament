@@ -30,6 +30,7 @@ class SlotResource extends Resource
             ->schema([
                 Forms\Components\Select::make('service_id')
                     ->relationship('service', 'nome')
+                    ->label('Servizio')
                     ->required(),
                 Forms\Components\Select::make('giorno')
                     ->options([
@@ -51,11 +52,13 @@ class SlotResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('service.nome')
-                    ->numeric()
+                    ->label('Servizio')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('giorno')
+                    ->label('Data')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('ora'),
+                Tables\Columns\TextColumn::make('ora')
+                    ->label('Ora'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -70,6 +73,7 @@ class SlotResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

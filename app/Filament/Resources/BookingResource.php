@@ -32,13 +32,16 @@ class BookingResource extends Resource
             ->schema([
                 Forms\Components\Select::make('customer_id')
                     ->relationship('customer', 'nome')
+                    ->label('Utente')
                     ->required(),
                 Forms\Components\Select::make('service_id')
                     ->relationship('service', 'nome')
+                    ->label('Servizio')
                     ->live(debounce: 500)
                     ->required(),
                 Forms\Components\DatePicker::make('data')
                     ->displayFormat('M d, Y')
+                    ->required()
                     ->label('Data')
                     ->disabled(fn(Get $get): bool => ! filled($get('service_id')))
                     ->live(debounce: 500)
@@ -46,6 +49,7 @@ class BookingResource extends Resource
                 Forms\Components\Select::make('slot_id')
                     ->relationship('slot', 'ora')
                     ->label('Fascia Oraria')
+                    ->required()
                     ->disableOptionWhen(function ($value, $get) {
 
                         $bookings = Booking::where('data', $get('data'))
@@ -80,19 +84,14 @@ class BookingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer.nome')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Utente'),
                 Tables\Columns\TextColumn::make('service.nome')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('slot.ora')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Servizio'),
                 Tables\Columns\TextColumn::make('data')
                     ->date()
-                    ->sortable(),
-
-
+                    ->label('Data'),
+                Tables\Columns\TextColumn::make('slot.ora')
+                    ->label('Fascia Oraria'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Filament\Resources\CustomerResource\RelationManagers\BookingsRelationManager;
 use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -109,7 +110,7 @@ class CustomerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            BookingsRelationManager::class,
         ];
     }
 
