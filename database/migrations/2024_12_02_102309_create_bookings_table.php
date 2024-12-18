@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('slot_id')->cascadeOnDelete();
             $table->date('data');
             $table->string('messaggio')->nullable();
-            $table->boolean('available')->default(true);
             $table->timestamps();
         });
     }
