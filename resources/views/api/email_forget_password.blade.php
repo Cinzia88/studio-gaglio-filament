@@ -19,17 +19,22 @@
                 <div class="level-left">
                     <div class="level-item">
                         <h1 class="title">
-                            title
+                            Reset Password
                         </h1>
 
                     </div>
                 </div>
             </div>
+
+
+
+
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
                         <p>
-                            {{ $data['email'] }}
+                            Hai ricevuto questa email, perché abbiamo ricevuto una richiesta di reimpostazione della password.<br />
+                            Clicca in basso per resettarla
                         </p>
                     </div>
                 </div>
@@ -38,13 +43,11 @@
                 <a href="{{ URL::to('reset-password/'.$data['token'] .'/'. $data['email'] ) }}" class="button is-success">Reset Password</a>
 
             </div>
-
-
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
                         <p>
-                            Questo link per verificare la tua e-mail scadrà tra 60 minuti.
+                            Questo link per reimpostare la password scadrà tra 60 minuti.
                         </p>
                     </div>
                 </div>
