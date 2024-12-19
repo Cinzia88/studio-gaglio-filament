@@ -14,6 +14,8 @@ class BookingsRelationManager extends RelationManager
 {
     protected static string $relationship = 'bookings';
 
+    protected static ?string $title = 'Prenotazioni';
+
     public function form(Form $form): Form
     {
         return $form
@@ -28,8 +30,10 @@ class BookingsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('service.nome')
+
             ->columns([
-                Tables\Columns\TextColumn::make('service.nome'),
+                Tables\Columns\TextColumn::make('service.nome')
+                ->label('Servizio'),
             ])
             ->filters([
                 //

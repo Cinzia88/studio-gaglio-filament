@@ -15,17 +15,17 @@ class ServiceSeeder extends Seeder
     {
         Service::create([
             'holder_id' => null,
-            'nome' => 'Agenzia Assicurazioni',
+            'nome' => 'Agenzia Automobilistica e Assicurazioni',
         ]);
 
         Service::create([
             'holder_id' => null,
-            'nome' => 'Corsi di formazione',
+            'nome' => 'Corsi di Formazione e Universitari',
         ]);
 
         Service::create([
             'holder_id' => null,
-            'nome' => 'Patronato',
+            'nome' => 'Disbrigo Pratiche, Caf e Patronato',
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BookingResource\Pages;
 use App\Models\Booking;
+use App\Models\Customer;
 use App\Models\Slot;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -33,6 +34,7 @@ class BookingResource extends Resource
                 Forms\Components\Select::make('customer_id')
                     ->relationship('customer', 'nome')
                     ->label('Utente')
+                    ->getOptionLabelFromRecordUsing(fn(Customer $record) => "{$record->nome} {$record->cognome}")
                     ->required(),
                 Forms\Components\Select::make('service_id')
                     ->relationship('service', 'nome')
@@ -84,6 +86,9 @@ class BookingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer.nome')
+                    ->formatStateUsing(function ($state, Booking $booking) {
+                        return $booking->customer->nome . ' ' . $booking->customer->cognome;
+                    })
                     ->label('Utente'),
                 Tables\Columns\TextColumn::make('service.nome')
                     ->label('Servizio'),

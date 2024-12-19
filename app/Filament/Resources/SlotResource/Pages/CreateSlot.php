@@ -12,4 +12,8 @@ class CreateSlot extends CreateRecord
 
     protected static ?string $title = 'Nuovo Slot';
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
+    }
 }

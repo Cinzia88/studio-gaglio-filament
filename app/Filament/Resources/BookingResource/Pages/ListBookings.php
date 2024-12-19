@@ -18,17 +18,19 @@ class ListBookings extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->label('Nuova'),
+            Actions\CreateAction::make(),
         ];
     }
     public function getTabs(): array
     {
         return [
             'Tutti' => Tab::make(),
-            'Agenzia Assicurazioni' => Tab::make()
+            'Agenzia Automobilistica e Assicurazioni' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('service_id', 1)),
-            'Corsi di formazione' => Tab::make()
+            'Corsi di Formazione e Universitari' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('service_id', 2)),
+            'Disbrigo Pratiche, Caf e Patronato' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('service_id', 3)),
         ];
     }
 

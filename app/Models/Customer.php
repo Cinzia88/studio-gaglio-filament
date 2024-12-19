@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,9 +16,12 @@ class Customer extends Authenticatable
 
     use HasApiTokens,  Notifiable, HasFactory;
 
+
+
     public function bookings(): HasMany
     {
-        return $this->hasMany(Customer::class);
+        return $this->hasMany(Booking::class);
     }
+
 
 }
